@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.box-add-person {
+  width: 300px; 
+  border: solid;
+}
+
+/* ----------------
+     START HEADER
+------------------ */
+.header-person {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.type-person {
+  width: 80%;
+}
+
+.btn-add {
+  flex: 1;
+  margin-left: 1rem;
+}
+
+/* ----------------
+     START LIST
+------------------ */
+.person-list {
+  padding: 2rem 0;
+}
+
+.person-item {
+  width: 80%;
+  padding: 1rem 0;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.person-name {
+  width: 80%;
+  overflow-wrap: break-word;
+}
+
+.remove-item {
+  width: 20px;
+}
