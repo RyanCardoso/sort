@@ -9,12 +9,13 @@
 </head>
 <body>
   <div class="container">
-    <section class="box-selected-people">
+    <section 
+      class="box-selected-people"
+      ondrop="drop(event)" 
+      ondragover="allowDrop(event)"  
+    >
       <p class="selected-placeholder">Arraste até aqui as pessoas que serão sorteadas</p>
-      <ul 
-        class="selected-list" 
-        ondrop="drop(event)" 
-        ondragover="allowDrop(event)">
+      <ul class="selected-list">
       </ul>
     </section>
     <div class="line"></div> 
@@ -24,7 +25,7 @@
     </section>
   </div>
   <section class="box-add-person">
-    <ul class="person-list"> 
+    <ul class="person-list">
     </ul>
   </section>
 

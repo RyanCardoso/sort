@@ -80,8 +80,8 @@ function generateRandomPerson () {
   let random = Math.floor(Math.random() * listSelected.length);
   let date = new Date();
 
-  const day = date.getDay();
-  const month = date.getDate();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
   const year = date.getFullYear();
   const hours = date.getHours();
   const minutes = date.getMinutes();
@@ -108,17 +108,22 @@ function drop (ev) {
   const data = ev.dataTransfer.getData("personID");
   const filter = saveList.filter(item => item.id === Number(data))
 
-  const personItem = document.getElementById(`${data}`);
-  personItem.classList.add('active');
-
   listSelected.push(...filter);
   updateListSelected();
+}
+
+function handleDisablePerson () {
+  listSelected?.map(item => {
+    const teste = document.getElementById(`${item.id}`);
+    teste?.classList?.add('active'); 
+    console.log(teste);
+  })
 }
 
 // Listas
 function updateListSelected () { 
   personListSelected.innerHTML = '';
-  
+
   if (listSelected.length)
     selectedPlaceholder.display = 'none';
   else selectedPlaceholder.display = 'flex';
@@ -134,6 +139,8 @@ function updateListSelected () {
     person.appendChild(personName)
     personListSelected.appendChild(person);
   })
+
+  handleDisablePerson();
 }
 
 function updateList () { 
@@ -160,6 +167,8 @@ function updateList () {
     person.appendChild(lixeira);
     personList.appendChild(person);
   })
+
+  handleDisablePerson();
 }
 
 function updateListRegister () {
