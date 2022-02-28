@@ -1,11 +1,47 @@
 // Variables
 const typePerson = document.querySelector('.type-person');
 const btnADD = document.querySelector('.btn-add');
-const personList = document.querySelector('.person-list');
+const personListSelected = document.querySelector('.selected-list');
+const selectedPlaceholder = document.querySelector('.selected-placeholder').style;
 const personRegister = document.querySelector('.person-register');
+const personList = document.querySelector('.person-list');
 
-let list = [];
+let listSelected = [];
 let listRegister = [];
+let list = [
+  {
+    label: 'Luan',
+    id: 1
+  },
+  {
+    label: 'Maykon',
+    id: 2
+  },
+  {
+    label: 'Lucas',
+    id: 3
+  },
+  {
+    label: 'Beatriz',
+    id: 4
+  },
+  {
+    label: 'Aline',
+    id: 5
+  },
+  {
+    label: 'Carolina',
+    id: 6
+  },
+  {
+    label: 'Nanah',
+    id: 7
+  },
+  {
+    label: 'Ryan',
+    id: 8
+  }
+];
 
 let saveList = JSON.parse(localStorage.getItem('list'));
 let saveListRegister = JSON.parse(localStorage.getItem('listRegister'));
@@ -14,6 +50,7 @@ let saveListRegister = JSON.parse(localStorage.getItem('listRegister'));
 window.addEventListener("load", function () {
   if (saveList) list = saveList;
 
+  handleAddPerson();
   updateList()
   updateListRegister()
 });
@@ -40,7 +77,7 @@ function handleRemovePerson (event) {
 }
  
 function generateRandomPerson () {
-  let random = Math.floor(Math.random() * list.length);
+  let random = Math.floor(Math.random() * listSelected.length);
   let date = new Date();
 
   const day = date.getDay();
@@ -49,15 +86,53 @@ function generateRandomPerson () {
   const hours = date.getHours();
   const minutes = date.getMinutes();
 
-  listRegister.push({
-    label: list[random].label, 
+  listSelected.length && listRegister.push({
+    label: listSelected[random].label, 
     date: `${day}/${month}/${year} - ${hours}h${minutes}m`
   });
 
   updateListRegister();
 }
 
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag (ev) {
+  const { classList } = ev.target;
+  ev.dataTransfer.setData("personID", classList[1]);
+}
+
+function drop (ev) {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData("personID");
+  const filter = saveList.filter(item => item.id === Number(data))
+
+  listSelected.push(...filter);
+  updateListSelected();
+}
+
 // Listas
+function updateListSelected () { 
+  personListSelected.innerHTML = '';
+  
+  if (listSelected.length)
+    selectedPlaceholder.display = 'none';
+  else selectedPlaceholder.display = 'flex';
+
+  listSelected?.map(item => {
+    const person = document.createElement("li");
+    person.classList = `person-selected-item ${item.id}`;
+    
+    const personName = document.createElement("p");
+    personName.classList = 'person-selected-name';
+    personName.innerText = item.label;
+  
+    person.appendChild(personName)
+    personListSelected.appendChild(person);
+  })
+}
+
 function updateList () { 
   saveList = JSON.parse(localStorage.getItem('list'));
   personList.innerHTML = '';
@@ -65,6 +140,8 @@ function updateList () {
   saveList?.map(item => {
     const person = document.createElement("li");
     person.classList = `person-item ${item.id}`;
+    person.draggable = true;
+    person.addEventListener('dragstart', drag)
     
     const personName = document.createElement("p");
     personName.classList = 'person-name';
@@ -94,7 +171,7 @@ function updateListRegister () {
     personName.innerText = item.label;
     
     const personDate = document.createElement("p");
-    personDate.classList = 'remove-date';
+    personDate.classList = 'register-date';
     personDate.innerText = item.date;
     
     person.appendChild(personName)
