@@ -73,7 +73,7 @@ function updateList () {
     const lixeira = document.createElement("img");
     lixeira.classList = 'remove-item';
     lixeira.addEventListener('click', handleRemovePerson)
-    lixeira.src = "https://cdn.icon-icons.com/icons2/1489/PNG/512/rubbishbin_102620.png";
+    lixeira.src = "https://icon-library.com/images/delete-icon-png-16x16/delete-icon-png-16x16-4.jpg";
     
     person.appendChild(personName)
     person.appendChild(lixeira);
