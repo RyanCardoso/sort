@@ -2,36 +2,67 @@
 const typePerson = document.querySelector('.type-person');
 const btnADD = document.querySelector('.btn-add');
 const personList = document.querySelector('.person-list');
+const personRegister = document.querySelector('.person-register');
 
 let list = [];
+let listRegister = [];
+
+let saveList = JSON.parse(localStorage.getItem('list'));
+let saveListRegister = JSON.parse(localStorage.getItem('listRegister'));
 
 // Events
-window.addEventListener("load", updateList);
+window.addEventListener("load", function () {
+  if (saveList) list = saveList;
+
+  updateList()
+  updateListRegister()
+});
 btnADD.addEventListener('click', handleAddPerson);
 
 function handleAddPerson  () {
-  if (typePerson.value !== '')
+  if (typePerson.value !== '') 
     list.push({label: typePerson.value, id: Date.now()});
 
-    typePerson.value = '';
-    updateList();
+  localStorage.setItem('list', JSON.stringify(list));
+  typePerson.value = '';
+  updateList();
 }
 
-function handleRemovePerson () {
-  const parent = this.parentNode;
-  const _class = parent.classList[1];
+function handleRemovePerson (event) {
+  const { parentNode } = event.target;
+  personList.innerHTML = '';
   
-  const teste = list.filter(item => item.id != _class)
-  list = teste;
-  console.log(list);
+  list = 
+   list.filter(item => item.id != parentNode.classList[1]); 
 
-  updateList();  
+  localStorage.setItem('list', JSON.stringify(list));
+  updateList();
 }
  
-function updateList () {
+function generateRandomPerson () {
+  let random = Math.floor(Math.random() * list.length);
+  let date = new Date();
+
+  const day = date.getDay();
+  const month = date.getDate();
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  listRegister.push({
+    label: list[random].label, 
+    date: `${day}/${month}/${year} - ${hours}h${minutes}m`
+  });
+
+  updateListRegister();
+}
+
+// Listas
+function updateList () { 
+  saveList = JSON.parse(localStorage.getItem('list'));
   personList.innerHTML = '';
 
-  list.map(item => {
+  saveList?.map(item => {
     const person = document.createElement("li");
     person.classList = `person-item ${item.id}`;
     
@@ -50,7 +81,24 @@ function updateList () {
   })
 }
 
-function generateRandomPerson () {
-  let teste = Math.floor(Math.random() * list.length)
-  alert(list[teste].label);
+function updateListRegister () {
+  saveListRegister = JSON.parse(localStorage.getItem('listRegister'));
+  personRegister.innerHTML = '';
+
+  listRegister?.map(item => {
+    const person = document.createElement("li");
+    person.classList = `item-register ${item.date}`;
+    
+    const personName = document.createElement("p");
+    personName.classList = 'register-name';
+    personName.innerText = item.label;
+    
+    const personDate = document.createElement("p");
+    personDate.classList = 'remove-date';
+    personDate.innerText = item.date;
+    
+    person.appendChild(personName)
+    person.appendChild(personDate);
+    personRegister.appendChild(person);
+  })
 }

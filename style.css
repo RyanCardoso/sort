@@ -4,9 +4,23 @@
   box-sizing: border-box;
 }
 
+.container {
+  max-width: 1440px;
+  width: 90%;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+}
+
 .box-add-person {
-  width: 300px; 
-  border: solid;
+  width: 45%; 
+}
+
+.line {
+  width: 2px;
+
+  background: rgba(0, 0, 0, 0.2);
 }
 
 /* ----------------
@@ -51,4 +65,18 @@
 
 .remove-item {
   width: 20px;
+}
+
+/* ----------------
+    START RESULT
+------------------ */
+.box-result {
+  width: 45%;
+}
+
+.item-register {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
 }
