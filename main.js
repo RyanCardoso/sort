@@ -108,6 +108,9 @@ function drop (ev) {
   const data = ev.dataTransfer.getData("personID");
   const filter = saveList.filter(item => item.id === Number(data))
 
+  const personItem = document.getElementById(`${data}`);
+  personItem.classList.add('active');
+
   listSelected.push(...filter);
   updateListSelected();
 }
@@ -140,6 +143,7 @@ function updateList () {
   saveList?.map(item => {
     const person = document.createElement("li");
     person.classList = `person-item ${item.id}`;
+    person.id = item.id;
     person.draggable = true;
     person.addEventListener('dragstart', drag)
     

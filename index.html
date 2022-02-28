@@ -23,21 +23,33 @@
       </ul>
     </section>
   </div>
-  <button onclick="generateRandomPerson()">
-    gerar
-  </button>
   <section class="box-add-person">
-    <div class="header-person">
-      <input class="type-person">
-      <input 
-        class="btn-add"
-        type="button" 
-        value="+"
-      >
-    </div>
     <ul class="person-list"> 
     </ul>
   </section>
+
+  <section class="box-menu" id="boxMenu">
+    <div class="menu-content">
+      <div class="menu-add">
+        <input 
+          class="type-person"
+          placeholder="add a new person"
+        >
+        <input 
+          class="btn-add"
+          type="button" 
+          value="+"
+        >
+      </div>
+      <button 
+        class="btn-generate"
+        onclick="generateRandomPerson()"
+      >
+        Sortear
+      </button>
+    </div>
+  </section>
   <script src="main.js"></script>
+  <script src="moveMenu.js"></script>
 </body>
 </html>

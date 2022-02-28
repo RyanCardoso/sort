@@ -70,19 +70,6 @@
   width: 90%;
   margin: 0 auto;
 }
-.header-person {
-  width: 100%;
-
-  display: flex;
-  justify-content: space-between;
-}
-.type-person {
-  width: 80%;
-}
-.btn-add {
-  flex: 1;
-  margin-left: 1rem;
-}
 
 /* START LIST */
 .person-list {
@@ -104,9 +91,13 @@
   align-items: center;
   justify-content: space-between;
 
-  cursor: move;
+  cursor: grab;
   background-color: #913383;
   border-radius: 32px;
+}
+.active {
+  pointer-events: none;
+  opacity: 0.2;
 }
 .person-name {
   width: 80%;
@@ -118,4 +109,63 @@
 .remove-item {
   width: 20px;
   cursor: pointer;
+}
+
+/* ----------------------
+  START MENU
+----------------------- */
+.box-menu {
+  position: absolute;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+
+  background-color: pink;
+  border-radius: 50%;
+  cursor: grab;
+}
+.menu-content {
+  position: absolute;
+  top: 50%;
+  right: 150%;
+  transform: translateY(-50%);
+  width: 250px;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  background-color: pink;
+  border-radius: 8px;
+}
+.menu-add {
+  display: flex;
+}
+.type-person {
+  width: 80%;
+  padding: 9px;
+  
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.btn-add {
+  flex: 1;
+  margin-left: .5rem;
+
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #FFF;
+}
+.btn-generate{
+  margin-top: 1rem;
+  padding: 16px;
+  
+  border-radius: 32px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: #FFF;
 }
