@@ -5,6 +5,7 @@ const personListSelected = document.querySelector('.selected-list');
 const selectedPlaceholder = document.querySelector('.selected-placeholder').style;
 const personRegister = document.querySelector('.person-register');
 const personList = document.querySelector('.person-list');
+const messageErro = document.querySelector('.erro-message');
 
 let listSelected = [];
 let listRegister = [];
@@ -50,15 +51,24 @@ let saveListRegister = JSON.parse(localStorage.getItem('listRegister'));
 window.addEventListener("load", function () {
   if (saveList) list = saveList;
 
-  handleAddPerson();
+  /* handleAddPerson(); */
   updateList()
   updateListRegister()
 });
 btnADD.addEventListener('click', handleAddPerson);
 
 function handleAddPerson  () {
-  if (typePerson.value !== '') 
-    list.push({label: typePerson.value, id: Date.now()});
+  if (typePerson.value !== '') {
+    const checked = list.find(item => 
+      item.label.toLocaleLowerCase() === typePerson.value.toLocaleLowerCase()
+    )
+    
+    if(!checked) {
+      list.push({label: typePerson.value, id: Date.now()});
+      messageErro.innerText = ''
+    } else messageErro.innerText = 'Nome ja existente'
+
+  } else messageErro.innerText = 'Digite algum nome';
 
   localStorage.setItem('list', JSON.stringify(list));
   typePerson.value = '';

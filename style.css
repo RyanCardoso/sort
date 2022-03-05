@@ -173,8 +173,12 @@
   cursor: pointer;
   background-color: #FFF;
 }
+.erro-message {
+  padding: .5rem 0;
+  font-size: 10px;
+  color: red;
+}
 .btn-generate{
-  margin-top: 1rem;
   padding: 16px;
   
   border-radius: 32px;
